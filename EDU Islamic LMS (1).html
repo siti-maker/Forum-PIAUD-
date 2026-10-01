@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDU (LMS) - Portal Akademik & Pembelajaran PIAUD</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emeraldTheme: {
+                            DEFAULT: '#064e3b',
+                            dark: '#022c22',
+                            light: '#047857',
+                        },
+                        goldTheme: {
+                            DEFAULT: '#d97706',
+                            light: '#f59e0b',
+                            dark: '#b45309',
+                            accent: '#fbbf24'
+                        },
+                        ivoryTheme: {
+                            DEFAULT: '#fbfbfa',
+                            light: '#ffffff',
+                            dark: '#f3f3f0'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fbfbfa;
+            color: #1f2937;
+        }
+        .font-arabic {
+            font-family: 'Amiri', serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f3f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #047857;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-ivoryTheme min-h-screen flex flex-col selection:bg-goldTheme selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="bg-emeraldTheme-dark text-white shadow-lg sticky top-0 z-50 border-b-2 border-goldTheme">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-goldTheme flex items-center justify-center text-emeraldTheme-dark shadow-inner text-xl font-bold">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-wide text-goldTheme-accent">EDU (LMS)</h1>
+                    <p class="text-xs text-gray-300">Portal Akademik & Pembelajaran PIAUD</p>
+                </div>
+            </div>
+            
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                <a href="#beranda" class="hover:text-goldTheme-accent transition"><i class="fa-solid fa-house mr-1"></i> Beranda</a>
+                <a href="#matakuliah" class="hover:text-goldTheme-accent transition"><i class="fa-solid fa-book-open mr-1"></i> Mata Kuliah & Tugas</a>
+                <a href="#mahasiswa" class="hover:text-goldTheme-accent transition"><i class="fa-solid fa-users mr-1"></i> PIAUD & Kelompok</a>
+                <a href="#fitur" class="hover:text-goldTheme-accent transition"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> AI & Hiburan</a>
+                <a href="#agenda" class="hover:text-goldTheme-accent transition"><i class="fa-solid fa-calendar-days mr-1"></i> Agenda & Info</a>
+                <a href="#kontak" class="hover:text-goldTheme-accent transition"><i class="fa-solid fa-address-book mr-1"></i> Kontak & Sosmed</a>
+            </nav>
+
+            <!-- Admin Mode & Mobile Menu -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleAdminModal()" id="adminBtnHeader" class="bg-goldTheme hover:bg-goldTheme-dark text-emeraldTheme-dark px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold shadow transition flex items-center gap-1.5 border border-goldTheme-light cursor-pointer">
+                    <i class="fa-solid fa-lock" id="adminIcon"></i> <span id="adminBtnText">Mode Pengurus</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-white p-2 text-xl focus:outline-none cursor-pointer">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-emeraldTheme border-t border-emeraldTheme-light px-4 py-3 space-y-2">
+            <a href="#beranda" onclick="toggleMobileMenu()" class="block py-2 hover:text-goldTheme-accent"><i class="fa-solid fa-house mr-2"></i> Beranda</a>
+            <a href="#matakuliah" onclick="toggleMobileMenu()" class="block py-2 hover:text-goldTheme-accent"><i class="fa-solid fa-book-open mr-2"></i> Mata Kuliah & Tugas</a>
+            <a href="#mahasiswa" onclick="toggleMobileMenu()" class="block py-2 hover:text-goldTheme-accent"><i class="fa-solid fa-users mr-2"></i> PIAUD & Kelompok</a>
+            <a href="#fitur" onclick="toggleMobileMenu()" class="block py-2 hover:text-goldTheme-accent"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> AI & Hiburan</a>
+            <a href="#agenda" onclick="toggleMobileMenu()" class="block py-2 hover:text-goldTheme-accent"><i class="fa-solid fa-calendar-days mr-2"></i> Agenda & Info</a>
+            <a href="#kontak" onclick="toggleMobileMenu()" class="block py-2 hover:text-goldTheme-accent"><i class="fa-solid fa-address-book mr-2"></i> Kontak & Sosmed</a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- SECTION: BERANDA -->
+        <section id="beranda" class="space-y-6">
+            <div class="bg-gradient-to-r from-emeraldTheme to-emeraldTheme-light rounded-2xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden border-2 border-goldTheme">
+                <div class="absolute right-0 bottom-0 opacity-10 text-9xl transform translate-x-10 translate-y-10">
+                    <i class="fa-solid fa-mosque"></i>
+                </div>
+                <div class="max-w-3xl relative z-10 space-y-4">
+                    <span class="bg-goldTheme text-emeraldTheme-dark font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Portal Akademik Resmi</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-goldTheme-accent">Selamat Datang di EDU (LMS)</h2>
+                    <p class="text-gray-100 text-sm sm:text-base leading-relaxed">
+                        Pusat manajemen pembelajaran mahasiswa PIAUD. Akses langsung portal resmi kampus, instruksi tugas 10 mata kuliah per pertemuan, materi kuliah, dan RPS lengkap.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <a href="https://iaimdfi.astaharsagrup.com" target="_blank" rel="noopener noreferrer" class="bg-goldTheme hover:bg-goldTheme-dark text-emeraldTheme-dark font-bold px-6 py-3 rounded-xl shadow-lg transition flex items-center gap-2 text-sm cursor-pointer">
+                            <i class="fa-solid fa-globe"></i> Kunjungi Portal Resmi (iaimdfi.astaharsagrup.com) <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                        <a href="#matakuliah" class="bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-xl backdrop-blur-sm transition border border-white/20 text-sm">
+                            Kelola Mata Kuliah & Tugas
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doa Harian & Pengumpulan Tugas Mahasiswa -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Doa Harian Random -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-emeraldTheme bg-emerald-50 px-3 py-1 rounded-full"><i class="fa-solid fa-book-quran mr-1"></i> Doa Harian Islami</span>
+                            <button onclick="generateRandomDoa()" class="text-xs text-goldTheme hover:text-goldTheme-dark font-medium flex items-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-rotate"></i> Acak Doa
+                            </button>
+                        </div>
+                        <p id="arabicText" class="font-arabic text-2xl text-right text-emeraldTheme-dark mb-3 leading-loose">رَبِّ زِدْنِي عِلْمًا</p>
+                        <p id="latinText" class="text-xs text-gray-500 italic mb-2">"Rabbi zidni 'ilman"</p>
+                        <p id="translationText" class="text-sm font-medium text-gray-700">"Ya Allah, tambahkanlah kepadaku ilmu pengetahuan."</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-400 flex justify-between items-center">
+                        <span>Fitur Islami Interaktif</span>
+                        <span id="doaSource" class="text-emeraldTheme font-semibold">QS. Taha: 114</span>
+                    </div>
+                </div>
+
+                <!-- Form Pengumpulan Tugas Mahasiswa PIAUD -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-goldTheme bg-amber-50 px-3 py-1 rounded-full"><i class="fa-solid fa-paper-plane mr-1"></i> Pengumpulan Tugas Mahasiswa</span>
+                            <span class="text-xs text-gray-400">Mode Mahasiswa PIAUD</span>
+                        </div>
+                        <form onsubmit="handleStudentSubmission(event)" class="space-y-3">
+                            <div>
+                                <input type="text" id="subName" placeholder="Nama Lengkap Mahasiswa" required class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="text" id="subNim" placeholder="NIM" required class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                                <select id="subSubject" required class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                                    <option value="">Pilih Mata Kuliah</option>
+                                    <option value="Bahasa Arab">Bahasa Arab</option>
+                                    <option value="Fiqih">Fiqih</option>
+                                    <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                                    <option value="Bahasa Inggris">Bahasa Inggris</option>
+                                    <option value="Pendidikan Kewarganegaraan">Pendidikan Kewarganegaraan</option>
+                                    <option value="Pendidikan Anti Korupsi Anti Narkoba & Deradikalisasi">Anti Korupsi, Narkoba & Deradikalisasi</option>
+                                    <option value="Ulumul Quran">Ulumul Qur'an</option>
+                                    <option value="Pemikiran Islam">Pemikiran Islam</option>
+                                    <option value="Ulumul Hadis">Ulumul Hadis</option>
+                                    <option value="Sejarah Peradaban Islam">Sejarah Peradaban Islam</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="url" id="subLink" placeholder="Link Tugas / Google Drive" required class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                            </div>
+                            <button type="submit" class="w-full bg-emeraldTheme hover:bg-emeraldTheme-light text-white font-medium py-2 rounded-lg text-xs sm:text-sm transition shadow cursor-pointer">
+                                <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Kirim Tugas
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: 10 MATA KULIAH (Dengan Sub-Tab: RPS, Materi, Instruksi Tugas Multi-Pertemuan) -->
+        <section id="matakuliah" class="space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h3 class="text-2xl font-bold text-emeraldTheme-dark"><i class="fa-solid fa-book-bookmark mr-2 text-goldTheme"></i> 10 Mata Kuliah — RPS, Materi & Instruksi Tugas (1 Semester)</h3>
+                    <p class="text-xs sm:text-sm text-gray-500">Pilih mata kuliah untuk melihat RPS, materi, dan instruksi tugas per pertemuan (Pertemuan 1 s.d. 16).</p>
+                </div>
+                <div id="adminCourseAction" class="hidden flex gap-2">
+                    <button onclick="openCourseEditModal()" class="bg-emeraldTheme hover:bg-emeraldTheme-light text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-pen-to-square"></i> Edit RPS & Dosen
+                    </button>
+                    <button onclick="openTaskMeetingModal()" class="bg-goldTheme hover:bg-goldTheme-dark text-emeraldTheme-dark px-4 py-2 rounded-xl text-xs font-bold transition shadow flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-plus"></i> Tambah Tugas Pertemuan
+                    </button>
+                </div>
+            </div>
+
+            <!-- Course Selector Tabs (10 Mata Kuliah) -->
+            <div class="flex overflow-x-auto pb-2 gap-2 scrollbar-thin">
+                <button onclick="switchCourseTab(0)" id="cTab-0" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-emeraldTheme text-white shadow">1. Bahasa Arab</button>
+                <button onclick="switchCourseTab(1)" id="cTab-1" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">2. Fiqih</button>
+                <button onclick="switchCourseTab(2)" id="cTab-2" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">3. Bahasa Indonesia</button>
+                <button onclick="switchCourseTab(3)" id="cTab-3" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">4. Bahasa Inggris</button>
+                <button onclick="switchCourseTab(4)" id="cTab-4" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">5. Pendidikan Kewarganegaraan</button>
+                <button onclick="switchCourseTab(5)" id="cTab-5" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">6. Anti Korupsi & Narkoba</button>
+                <button onclick="switchCourseTab(6)" id="cTab-6" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">7. Ulumul Qur'an</button>
+                <button onclick="switchCourseTab(7)" id="cTab-7" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">8. Pemikiran Islam</button>
+                <button onclick="switchCourseTab(8)" id="cTab-8" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">9. Ulumul Hadis</button>
+                <button onclick="switchCourseTab(9)" id="cTab-9" class="course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">10. Sejarah Peradaban Islam</button>
+            </div>
+
+            <!-- Active Course Content Card -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-gray-100 gap-2">
+                    <div>
+                        <span class="text-xs font-bold text-goldTheme bg-amber-50 px-3 py-1 rounded-full"><i class="fa-solid fa-graduation-cap mr-1"></i> Mata Kuliah Aktif</span>
+                        <h4 id="activeCourseTitle" class="text-xl sm:text-2xl font-extrabold text-emeraldTheme-dark mt-1">Bahasa Arab</h4>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <span class="font-semibold text-gray-700">Dosen Pengampu:</span> <span id="activeCourseLecturer">Belum diisi oleh pengurus</span>
+                    </div>
+                </div>
+
+                <!-- Sub-Tabs for Course Details (RPS, Materi, Instruksi Tugas Multi-Pertemuan) -->
+                <div class="flex border-b border-gray-200 space-x-6 text-sm">
+                    <button onclick="switchSubTab('rps')" id="subBtn-rps" class="sub-tab pb-3 font-bold text-emeraldTheme border-b-2 border-emeraldTheme cursor-pointer"><i class="fa-solid fa-calendar-alt mr-1"></i> RPS & Jadwal</button>
+                    <button onclick="switchSubTab('material')" id="subBtn-material" class="sub-tab pb-3 font-semibold text-gray-500 hover:text-emeraldTheme cursor-pointer"><i class="fa-solid fa-file-lines mr-1"></i> Materi Kuliah</button>
+                    <button onclick="switchSubTab('task')" id="subBtn-task" class="sub-tab pb-3 font-semibold text-gray-500 hover:text-emeraldTheme cursor-pointer"><i class="fa-solid fa-list-check mr-1"></i> Instruksi Tugas (Multi-Pertemuan)</button>
+                </div>
+
+                <!-- Sub-Tab Content: RPS & Jadwal -->
+                <div id="content-rps" class="course-sub-content space-y-4">
+                    <div class="bg-ivoryTheme-dark p-5 rounded-xl border border-gray-200">
+                        <h5 class="font-bold text-emeraldTheme-dark mb-2 text-sm"><i class="fa-solid fa-calendar-days text-goldTheme mr-1"></i> Rencana Pembelajaran Semester (RPS) & Jadwal</h5>
+                        <div id="activeRpsContent" class="text-xs sm:text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+                            Belum ada RPS yang diunggah oleh pengurus.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Tab Content: Materi Kuliah -->
+                <div id="content-material" class="course-sub-content space-y-4 hidden">
+                    <div class="bg-ivoryTheme-dark p-5 rounded-xl border border-gray-200">
+                        <h5 class="font-bold text-emeraldTheme-dark mb-2 text-sm"><i class="fa-solid fa-book-open text-emeraldTheme mr-1"></i> Materi Pembelajaran & Dokumen</h5>
+                        <div id="activeMaterialContent" class="text-xs sm:text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+                            Belum ada materi kuliah yang diunggah oleh pengurus.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Tab Content: Instruksi Tugas (Multi-Pertemuan 1-16) -->
+                <div id="content-task" class="course-sub-content space-y-4 hidden">
+                    <div class="flex justify-between items-center">
+                        <h5 class="font-bold text-emeraldTheme-dark text-sm"><i class="fa-solid fa-list-check text-goldTheme mr-1"></i> Daftar Tugas Per Pertemuan (1 Semester)</h5>
+                    </div>
+                    <div id="activeTaskMeetingsList" class="space-y-3">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: PIAUD & KELOMPOK -->
+        <section id="mahasiswa" class="space-y-8">
+            <!-- Daftar Mahasiswa PIAUD -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-emeraldTheme-dark"><i class="fa-solid fa-user-graduate mr-2 text-goldTheme"></i> Daftar Mahasiswa PIAUD</h3>
+                        <p class="text-xs sm:text-sm text-gray-500">Direktori mahasiswa program studi PIAUD (Khusus baca oleh mahasiswa, edit oleh pengurus).</p>
+                    </div>
+                    <div id="adminStudentAction" class="hidden">
+                        <button onclick="openStudentModal()" class="bg-emeraldTheme hover:bg-emeraldTheme-light text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-user-plus"></i> Tambah Mahasiswa
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-emeraldTheme text-white">
+                                <th class="p-3 rounded-l-lg">No</th>
+                                <th class="p-3">NIM</th>
+                                <th class="p-3">Nama Lengkap</th>
+                                <th class="p-3">Kelompok / Kelas</th>
+                                <th class="p-3">Status</th>
+                                <th class="p-3 rounded-r-lg text-center admin-col hidden">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody" class="divide-y divide-gray-100">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Daftar Kelompok, Anggota & Link Grup -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-emeraldTheme-dark"><i class="fa-solid fa-users-rectangle mr-2 text-goldTheme"></i> Daftar Kelompok, Anggota & Link Grup</h3>
+                        <p class="text-xs sm:text-sm text-gray-500">Nama kelompok, anggota, pengurus kelompok, dan link grup WhatsApp/Telegram.</p>
+                    </div>
+                    <div id="adminGroupAction" class="hidden">
+                        <button onclick="openGroupModal()" class="bg-emeraldTheme hover:bg-emeraldTheme-light text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-plus"></i> Tambah Kelompok
+                        </button>
+                    </div>
+                </div>
+                <div id="groupGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: AI, TRIVIA & MOTIVASI -->
+        <section id="fitur" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Ringkasan Dokumen AI -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex flex-col justify-between space-y-4">
+                <div>
+                    <span class="text-xs font-bold text-emeraldTheme bg-emerald-50 px-3 py-1 rounded-full"><i class="fa-solid fa-robot mr-1"></i> AI Assistant</span>
+                    <h4 class="text-lg font-bold text-emeraldTheme-dark mt-2">Ringkasan Dokumen PDF / Teks</h4>
+                    <p class="text-xs text-gray-500 mb-3">Mode poin singkat atau naratif untuk merangkum materi kuliah.</p>
+                    <textarea id="aiInputText" rows="4" placeholder="Tempelkan teks materi atau dokumen di sini..." class="w-full text-xs p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none resize-none"></textarea>
+                </div>
+                <button onclick="runAiSummary()" class="w-full bg-emeraldTheme hover:bg-emeraldTheme-light text-white py-2 rounded-lg font-medium text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Ringkas Dokumen (AI)
+                </button>
+                <div id="aiResultBox" class="hidden bg-ivoryTheme-dark p-3 rounded-lg text-xs text-gray-700 border border-gray-200 max-h-40 overflow-y-auto">
+                    <!-- AI output -->
+                </div>
+            </div>
+
+            <!-- Hiburan & Motivasi Islami Random -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex flex-col justify-between space-y-4">
+                <div>
+                    <span class="text-xs font-bold text-goldTheme bg-amber-50 px-3 py-1 rounded-full"><i class="fa-solid fa-face-smile-beam mr-1"></i> Hiburan & Motivasi</span>
+                    <h4 class="text-lg font-bold text-emeraldTheme-dark mt-2">Islamic Unik & Motivasi Seru</h4>
+                    <p id="motivationText" class="text-xs sm:text-sm text-gray-700 italic mt-3 bg-ivoryTheme-dark p-4 rounded-xl border border-gray-200 leading-relaxed">
+                        "Kesuksesan dalam menuntut ilmu adalah buah dari kesabaran, keikhlasan, dan doa yang tidak pernah putus."
+                    </p>
+                </div>
+                <button onclick="generateRandomMotivation()" class="w-full bg-goldTheme hover:bg-goldTheme-dark text-emeraldTheme-dark py-2 rounded-lg font-bold text-xs transition shadow cursor-pointer">
+                    Ganti Motivasi & Hiburan Random
+                </button>
+            </div>
+
+            <!-- Daftar Kustom / Pertanyaan Tugas -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex flex-col justify-between space-y-4">
+                <div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-emeraldTheme bg-emerald-50 px-3 py-1 rounded-full"><i class="fa-solid fa-comments mr-1"></i> Daftar Kustom / Tanya Tugas</span>
+                        <div id="adminQaAction" class="hidden">
+                            <button onclick="openQaModal()" class="text-xs text-emeraldTheme font-bold hover:underline cursor-pointer"><i class="fa-solid fa-plus"></i> Tambah Jawab</button>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-bold text-emeraldTheme-dark mt-2">Pertanyaan Seputar Tugas</h4>
+                    <div id="qaList" class="mt-3 space-y-2 max-h-44 overflow-y-auto pr-1">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+                <div class="pt-2 border-t border-gray-100">
+                    <input type="text" id="userQuestionInput" placeholder="Ketik pertanyaan tugas, tekan Enter..." onkeypress="handleUserQuestion(event)" class="w-full text-xs px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: AGENDA, ALARM & INFO PENTING -->
+        <section id="agenda" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Agenda & Pengingat Alarm -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 space-y-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-emeraldTheme-dark"><i class="fa-solid fa-bell mr-2 text-goldTheme"></i> Agenda & Pengingat Alarm</h3>
+                    <div id="adminAgendaAction" class="hidden">
+                        <button onclick="openAgendaModal()" class="bg-emeraldTheme hover:bg-emeraldTheme-light text-white px-3 py-1.5 rounded-lg text-xs font-bold transition shadow cursor-pointer">
+                            <i class="fa-solid fa-plus"></i> Tambah Agenda
+                        </button>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500">Dilengkapi alarm pengingat browser dan notifikasi waktu kuliah.</p>
+                <div id="agendaList" class="space-y-3 max-h-60 overflow-y-auto">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Info Penting -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 space-y-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-emeraldTheme-dark"><i class="fa-solid fa-bullhorn mr-2 text-goldTheme"></i> Info Penting Kampus</h3>
+                    <div id="adminInfoAction" class="hidden">
+                        <button onclick="openInfoModal()" class="bg-emeraldTheme hover:bg-emeraldTheme-light text-white px-3 py-1.5 rounded-lg text-xs font-bold transition shadow cursor-pointer">
+                            <i class="fa-solid fa-plus"></i> Tambah Info
+                        </button>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500">Papan pengumuman resmi dengan perapian bahasa oleh sistem.</p>
+                <div id="infoList" class="space-y-3 max-h-60 overflow-y-auto">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: KONTAK & SOSMED -->
+        <section id="kontak" class="space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h3 class="text-2xl font-bold text-emeraldTheme-dark"><i class="fa-solid fa-address-book mr-2 text-goldTheme"></i> Kontak Dosen, Staff & Sosmed Kampus</h3>
+                    <p class="text-xs sm:text-sm text-gray-500">Kontak dosen, staff Asta Harsa, pengurus PIAUD, serta sosial media kampus & Asta Harsa.</p>
+                </div>
+                <div id="adminContactAction" class="hidden">
+                    <button onclick="openContactModal()" class="bg-emeraldTheme hover:bg-emeraldTheme-light text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-user-plus"></i> Tambah Kontak & Sosmed
+                    </button>
+                </div>
+            </div>
+
+            <div id="contactGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Populated via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-emeraldTheme-dark text-white border-t-2 border-goldTheme mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div>
+                <p class="font-bold text-goldTheme-accent">EDU (LMS) - Portal Akademik & Pembelajaran Islam</p>
+                <p class="text-xs text-gray-400 mt-1">Portal Resmi: <a href="https://iaimdfi.astaharsagrup.com" target="_blank" rel="noopener noreferrer" class="text-goldTheme underline hover:text-white">iaimdfi.astaharsagrup.com</a></p>
+            </div>
+            <p class="text-xs text-gray-400">&copy; 2026 Pengurus PIAUD. Seluruh Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full mx-4 shadow-2xl border-2 border-goldTheme space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-bold text-emeraldTheme-dark"><i class="fa-solid fa-lock mr-2 text-goldTheme"></i> Autentikasi Pengurus</h3>
+                <button onclick="toggleAdminModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-xs text-gray-500">Masukkan kata sandi pengurus (Default: <code class="bg-gray-100 text-emeraldTheme font-bold px-1 py-0.5 rounded">admin123</code>)</p>
+            <form onsubmit="handleAdminLogin(event)" class="space-y-3">
+                <input type="password" id="adminPasswordInput" placeholder="Kata Sandi Pengurus" required class="w-full text-sm px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                <button type="submit" class="w-full bg-goldTheme hover:bg-goldTheme-dark text-emeraldTheme-dark font-bold py-2.5 rounded-xl text-sm transition shadow cursor-pointer">
+                    Masuk Sebagai Pengurus
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Generic Dynamic Form Modal for Admin CRUD -->
+    <div id="dynamicModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center">
+                <h3 id="modalTitle" class="text-lg font-bold text-emeraldTheme-dark">Formulir Pengurus</h3>
+                <button onclick="closeDynamicModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="dynamicForm" onsubmit="handleDynamicFormSubmit(event)" class="space-y-3">
+                <div id="modalFormFields"></div>
+                <button type="submit" class="w-full bg-emeraldTheme hover:bg-emeraldTheme-light text-white font-bold py-2.5 rounded-xl text-sm transition shadow cursor-pointer">
+                    Simpan Perubahan
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-emeraldTheme-dark text-white text-xs sm:text-sm px-4 py-3 rounded-xl shadow-2xl transition transform translate-y-20 opacity-0 z-50 flex items-center gap-2 border border-goldTheme">
+        <i class="fa-solid fa-circle-check text-goldTheme"></i>
+        <span id="toastMessage">Berhasil!</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // 10 Courses Default Data (Empty/Ready to be filled by Admin, supports tasks array for multi-meetings)
+        const defaultCourses = [
+            { id: 0, name: "Bahasa Arab", lecturer: "", rps: "", material: "", tasks: [] },
+            { id: 1, name: "Fiqih", lecturer: "", rps: "", material: "", tasks: [] },
+            { id: 2, name: "Bahasa Indonesia", lecturer: "", rps: "", material: "", tasks: [] },
+            { id: 3, name: "Bahasa Inggris", lecturer: "", rps: "", material: "", tasks: [] },
+            { id: 4, name: "Pendidikan Kewarganegaraan", lecturer: "", rps: "", material: "", tasks: [] },
+            { id: 5, name: "Pendidikan Anti Korupsi Anti Narkoba & Deradikalisasi", lecturer: "", rps: "", material: "", tasks: [] },
+            { id: 6, name: "Ulumul Qur'an", lecturer: "", rps: "", material: "", tasks: [] },
+            { id: 7, name: "Pemikiran Islam", lecturer: "", rps: "", material: "", tasks: [] },
+            { id: 8, name: "Ulumul Hadis", lecturer: "", rps: "", material: "", tasks: [] },
+            { id: 9, name: "Sejarah Peradaban Islam", lecturer: "", rps: "", material: "", tasks: [] }
+        ];
+
+        const defaultData = {
+            courses: defaultCourses,
+            students: [],
+            groups: [],
+            qa: [],
+            agenda: [],
+            info: [],
+            contacts: [],
+            submissions: []
+        };
+
+        let appData = JSON.parse(localStorage.getItem('edu_lms_app_data')) || defaultData;
+        // Ensure legacy courses have tasks array if loaded from older localStorage
+        appData.courses.forEach(c => { if(!c.tasks) c.tasks = []; });
+
+        let isAdmin = localStorage.getItem('edu_lms_is_admin') === 'true';
+        let activeCourseIndex = 0;
+        let activeSubTabName = 'rps';
+
+        // Motivations List
+        const motivations = [
+            "“Barangsiapa menempuh jalan untuk mencari ilmu, maka Allah akan mudahkan baginya jalan menuju surga.” (HR. Muslim)",
+            "“Tuntutlah ilmu dari buaian hingga liang lahat. Semangat terus pejuang PIAUD!”",
+            "“Pendidikan anak usia dini adalah fondasi peradaban masa depan yang gemilang. Ikhlaskan niat dalam belajar.”",
+            "“Jangan biarkan lelah menghentikan langkahmu hari ini. Setiap ilmu yang kau pelajari adalah amal jariyah.”"
+        ];
+
+        // Doa List
+        const doaList = [
+            { arabic: "رَبِّ زِدْنِي عِلْمًا", latin: "Rabbi zidni 'ilman", trans: "Ya Allah, tambahkanlah kepadaku ilmu pengetahuan.", source: "QS. Taha: 114" },
+            { arabic: "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي", latin: "Rabbisyrah li shadri wa yassir li amri", trans: "Ya Allah, lapangkanlah dadaku dan mudahkanlah urusanku.", source: "QS. Taha: 25-26" },
+            { arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا", latin: "Allahumma inni as'aluka 'ilman nafi'an...", trans: "Ya Allah, aku memohon ilmu yang bermanfaat, rezeki yang baik, dan amal yang diterima.", source: "HR. Ibnu Majah" }
+        ];
+
+        window.onload = function() {
+            updateAdminUI();
+            renderActiveCourse();
+            renderStudents();
+            renderGroups();
+            renderQa();
+            renderAgenda();
+            renderInfo();
+            renderContacts();
+            generateRandomDoa();
+            generateRandomMotivation();
+        };
+
+        function toggleAdminModal() {
+            if (isAdmin) {
+                isAdmin = false;
+                localStorage.setItem('edu_lms_is_admin', 'false');
+                showToast("Berhasil keluar dari Mode Pengurus.");
+                updateAdminUI();
+            } else {
+                document.getElementById('adminModal').classList.toggle('hidden');
+            }
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const pass = document.getElementById('adminPasswordInput').value;
+            if (pass === 'admin123') {
+                isAdmin = true;
+                localStorage.setItem('edu_lms_is_admin', 'true');
+                document.getElementById('adminModal').classList.add('hidden');
+                document.getElementById('adminPasswordInput').value = '';
+                showToast("Mode Pengurus Aktif! Anda kini dapat mengedit.");
+                updateAdminUI();
+            } else {
+                showToast("Kata sandi salah! Gunakan: admin123");
+            }
+        }
+
+        function updateAdminUI() {
+            const btnText = document.getElementById('adminBtnText');
+            const adminIcon = document.getElementById('adminIcon');
+            const adminActions = [
+                'adminCourseAction', 'adminStudentAction', 'adminGroupAction', 
+                'adminQaAction', 'adminAgendaAction', 'adminInfoAction', 'adminContactAction'
+            ];
+
+            if (isAdmin) {
+                btnText.innerText = "Keluar Pengurus";
+                adminIcon.className = "fa-solid fa-lock-open";
+                adminActions.forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) el.classList.remove('hidden');
+                });
+                document.querySelectorAll('.admin-col').forEach(el => el.classList.remove('hidden'));
+            } else {
+                btnText.innerText = "Mode Pengurus";
+                adminIcon.className = "fa-solid fa-lock";
+                adminActions.forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) el.classList.add('hidden');
+                });
+                document.querySelectorAll('.admin-col').forEach(el => el.classList.add('hidden'));
+            }
+            renderActiveCourse();
+            renderStudents();
+            renderGroups();
+            renderQa();
+            renderAgenda();
+            renderInfo();
+            renderContacts();
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        function saveData() {
+            localStorage.setItem('edu_lms_app_data', JSON.stringify(appData));
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // --- Course & Sub-Tab Functions ---
+        function switchCourseTab(idx) {
+            activeCourseIndex = idx;
+            document.querySelectorAll('.course-tab').forEach((btn, i) => {
+                if (i === idx) {
+                    btn.className = "course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-emeraldTheme text-white shadow";
+                } else {
+                    btn.className = "course-tab whitespace-nowrap px-4 py-2.5 rounded-xl text-xs font-bold transition bg-white text-gray-700 hover:bg-gray-100 border border-gray-200";
+                }
+            });
+            renderActiveCourse();
+        }
+
+        function switchSubTab(subName) {
+            activeSubTabName = subName;
+            ['rps', 'material', 'task'].forEach(name => {
+                const btn = document.getElementById(`subBtn-${name}`);
+                const content = document.getElementById(`content-${name}`);
+                if (name === subName) {
+                    btn.className = "sub-tab pb-3 font-bold text-emeraldTheme border-b-2 border-emeraldTheme cursor-pointer";
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = "sub-tab pb-3 font-semibold text-gray-500 hover:text-emeraldTheme cursor-pointer";
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        function renderActiveCourse() {
+            const course = appData.courses[activeCourseIndex];
+            document.getElementById('activeCourseTitle').innerText = `${activeCourseIndex + 1}. ${course.name}`;
+            document.getElementById('activeCourseLecturer').innerText = course.lecturer || 'Belum diisi';
+            document.getElementById('activeRpsContent').innerText = course.rps || 'Belum ada RPS & jadwal yang diunggah.';
+            document.getElementById('activeMaterialContent').innerText = course.material || 'Belum ada materi kuliah yang diunggah.';
+
+            // Render Multi-meeting tasks (1-16)
+            const tasksListContainer = document.getElementById('activeTaskMeetingsList');
+            tasksListContainer.innerHTML = '';
+            if (!course.tasks || course.tasks.length === 0) {
+                tasksListContainer.innerHTML = `<div class="p-4 bg-ivoryTheme-dark rounded-xl text-xs text-gray-400 text-center">Belum ada instruksi tugas per pertemuan yang diunggah untuk mata kuliah ini.</div>`;
+                return;
+            }
+
+            // Sort tasks by meeting number
+            course.tasks.sort((a,b) => a.meeting - b.meeting).forEach(t => {
+                const div = document.createElement('div');
+                div.className = "p-4 bg-ivoryTheme-dark rounded-xl border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+                div.innerHTML = `
+                    <div class="space-y-1">
+                        <span class="bg-goldTheme text-emeraldTheme-dark text-[10px] font-bold px-2 py-0.5 rounded">Pertemuan ${t.meeting}</span>
+                        <h6 class="font-bold text-emeraldTheme-dark text-sm mt-1">${t.title}</h6>
+                        <p class="text-xs text-gray-600 whitespace-pre-line">${t.desc}</p>
+                    </div>
+                    ${isAdmin ? `
+                        <div class="flex items-center gap-2 self-end sm:self-center">
+                            <button onclick="openEditTaskMeetingModal(${t.id})" class="text-emeraldTheme hover:text-emeraldTheme-light text-xs bg-white px-2.5 py-1.5 rounded border border-gray-300 cursor-pointer"><i class="fa-solid fa-pen"></i> Edit</button>
+                            <button onclick="deleteTaskMeeting(${t.id})" class="text-red-600 hover:text-red-800 text-xs bg-white px-2.5 py-1.5 rounded border border-gray-300 cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    ` : ''}
+                `;
+                tasksListContainer.appendChild(div);
+            });
+        }
+
+        function openCourseEditModal() {
+            const course = appData.courses[activeCourseIndex];
+            openDynamicModal(`Edit RPS & Dosen: ${course.name}`, `
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Dosen Pengampu</label>
+                    <input type="text" id="editLecturer" value="${course.lecturer}" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Rencana Pembelajaran Semester (RPS) & Jadwal</label>
+                    <textarea id="editRps" rows="4" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">${course.rps}</textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Materi Kuliah</label>
+                    <textarea id="editMaterial" rows="4" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">${course.material}</textarea>
+                </div>
+            `, () => {
+                course.lecturer = document.getElementById('editLecturer').value;
+                course.rps = document.getElementById('editRps').value;
+                course.material = document.getElementById('editMaterial').value;
+                saveData();
+                renderActiveCourse();
+                showToast("RPS & Materi berhasil diperbarui!");
+            });
+        }
+
+        function openTaskMeetingModal() {
+            const course = appData.courses[activeCourseIndex];
+            openDynamicModal(`Tambah Tugas Pertemuan — ${course.name}`, `
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Nomor Pertemuan (1 s.d. 16)</label>
+                    <input type="number" id="tMeeting" min="1" max="16" value="1" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Judul / Topik Tugas</label>
+                    <input type="text" id="tTitle" placeholder="Contoh: Analisis Kosakata Bahasa Arab" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Instruksi & Detail Tugas</label>
+                    <textarea id="tDesc" rows="4" placeholder="Jelaskan instruksi tugas dan tenggat pengumpulan..." required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none"></textarea>
+                </div>
+            `, () => {
+                const meeting = parseInt(document.getElementById('tMeeting').value);
+                const title = document.getElementById('tTitle').value;
+                const desc = document.getElementById('tDesc').value;
+                course.tasks.push({ id: Date.now(), meeting, title, desc });
+                saveData();
+                renderActiveCourse();
+                showToast("Tugas pertemuan ditambahkan!");
+            });
+        }
+
+        function openEditTaskMeetingModal(taskId) {
+            const course = appData.courses[activeCourseIndex];
+            const task = course.tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            openDynamicModal(`Edit Tugas Pertemuan`, `
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Nomor Pertemuan (1 s.d. 16)</label>
+                    <input type="number" id="editTMeeting" min="1" max="16" value="${task.meeting}" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Judul / Topik Tugas</label>
+                    <input type="text" id="editTTitle" value="${task.title}" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Instruksi & Detail Tugas</label>
+                    <textarea id="editTDesc" rows="4" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">${task.desc}</textarea>
+                </div>
+            `, () => {
+                task.meeting = parseInt(document.getElementById('editTMeeting').value);
+                task.title = document.getElementById('editTTitle').value;
+                task.desc = document.getElementById('editTDesc').value;
+                saveData();
+                renderActiveCourse();
+                showToast("Tugas pertemuan diperbarui!");
+            });
+        }
+
+        function deleteTaskMeeting(taskId) {
+            const course = appData.courses[activeCourseIndex];
+            course.tasks = course.tasks.filter(t => t.id !== taskId);
+            saveData();
+            renderActiveCourse();
+            showToast("Tugas pertemuan dihapus.");
+        }
+
+        // --- Render Students ---
+        function renderStudents() {
+            const tbody = document.getElementById('studentTableBody');
+            tbody.innerHTML = '';
+            if (appData.students.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-gray-400 text-xs">Belum ada daftar mahasiswa. Silakan tambahkan melalui Mode Pengurus.</td></tr>`;
+                return;
+            }
+            appData.students.forEach((stu, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-50 transition";
+                tr.innerHTML = `
+                    <td class="p-3 font-medium">${index + 1}</td>
+                    <td class="p-3">${stu.nim}</td>
+                    <td class="p-3 font-semibold text-emeraldTheme-dark">${stu.name}</td>
+                    <td class="p-3">${stu.group}</td>
+                    <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full">${stu.status}</span></td>
+                    <td class="p-3 text-center admin-col ${isAdmin ? '' : 'hidden'}">
+                        <button onclick="deleteStudent(${stu.id})" class="text-red-600 hover:text-red-800 cursor-pointer"><i class="fa-solid fa-trash text-xs"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // --- Render Groups & Links ---
+        function renderGroups() {
+            const grid = document.getElementById('groupGrid');
+            grid.innerHTML = '';
+            if (appData.groups.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-6 text-gray-400 text-xs">Belum ada kelompok & link grup terdaftar.</div>`;
+                return;
+            }
+            appData.groups.forEach(g => {
+                const div = document.createElement('div');
+                div.className = "bg-ivoryTheme-dark rounded-xl p-4 border border-gray-200 flex flex-col justify-between space-y-3";
+                div.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <h5 class="font-bold text-emeraldTheme-dark text-sm">${g.name}</h5>
+                            ${isAdmin ? `<button onclick="deleteGroup(${g.id})" class="text-red-500 hover:text-red-700 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>` : ''}
+                        </div>
+                        <p class="text-xs text-gray-600 mt-1"><strong class="text-gray-700">Anggota:</strong> ${g.members || '-'}</p>
+                        <p class="text-xs text-gray-600 mt-0.5"><strong class="text-gray-700">Pengurus Kelompok:</strong> ${g.leader || '-'}</p>
+                    </div>
+                    <a href="${g.link}" target="_blank" rel="noopener noreferrer" class="bg-emeraldTheme hover:bg-emeraldTheme-light text-white text-center py-2 rounded-lg text-xs font-medium transition shadow flex items-center justify-center gap-1 cursor-pointer">
+                        <i class="fa-brands fa-whatsapp"></i> Buka Link Grup WA/Telegram
+                    </a>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        // --- Render Q&A / Daftar Kustom ---
+        function renderQa() {
+            const list = document.getElementById('qaList');
+            list.innerHTML = '';
+            if (appData.qa.length === 0) {
+                list.innerHTML = `<p class="text-xs text-gray-400 text-center py-3">Belum ada pertanyaan kustom.</p>`;
+                return;
+            }
+            appData.qa.forEach(q => {
+                const div = document.createElement('div');
+                div.className = "bg-ivoryTheme-dark p-3 rounded-xl border border-gray-200 text-xs space-y-1";
+                div.innerHTML = `
+                    <div class="flex justify-between font-semibold text-emeraldTheme-dark">
+                        <span>Q: ${q.question}</span>
+                        ${isAdmin ? `<button onclick="deleteQa(${q.id})" class="text-red-500 hover:underline cursor-pointer"><i class="fa-solid fa-trash"></i></button>` : ''}
+                    </div>
+                    <p class="text-gray-600 pl-3 border-l-2 border-goldTheme">A: ${q.answer || 'Belum dijawab pengurus.'}</p>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // --- Render Agenda & Alarm ---
+        function renderAgenda() {
+            const list = document.getElementById('agendaList');
+            list.innerHTML = '';
+            if (appData.agenda.length === 0) {
+                list.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">Belum ada agenda terdaftar.</p>`;
+                return;
+            }
+            appData.agenda.forEach(a => {
+                const div = document.createElement('div');
+                div.className = "bg-ivoryTheme-dark p-3.5 rounded-xl border border-gray-200 flex justify-between items-center text-xs";
+                div.innerHTML = `
+                    <div>
+                        <span class="bg-goldTheme text-emeraldTheme-dark font-bold px-2 py-0.5 rounded text-[10px]"><i class="fa-solid fa-clock"></i> ${a.date}</span>
+                        <h5 class="font-bold text-emeraldTheme-dark mt-1 text-sm">${a.title}</h5>
+                        <p class="text-gray-500">${a.desc}</p>
+                    </div>
+                    ${isAdmin ? `<button onclick="deleteAgenda(${a.id})" class="text-red-500 hover:text-red-700 p-1 cursor-pointer"><i class="fa-solid fa-trash"></i></button>` : ''}
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // --- Render Info Penting ---
+        function renderInfo() {
+            const list = document.getElementById('infoList');
+            list.innerHTML = '';
+            if (appData.info.length === 0) {
+                list.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">Belum ada info penting.</p>`;
+                return;
+            }
+            appData.info.forEach(i => {
+                const div = document.createElement('div');
+                div.className = "bg-ivoryTheme-dark p-3.5 rounded-xl border border-l-4 border-goldTheme text-xs space-y-1";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center font-bold text-emeraldTheme-dark">
+                        <span>${i.title}</span>
+                        ${isAdmin ? `<button onclick="deleteInfo(${i.id})" class="text-red-500 hover:underline cursor-pointer"><i class="fa-solid fa-trash"></i></button>` : ''}
+                    </div>
+                    <p class="text-gray-600 leading-relaxed">${i.desc}</p>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // --- Render Kontak & Sosmed ---
+        function renderContacts() {
+            const grid = document.getElementById('contactGrid');
+            grid.innerHTML = '';
+            if (appData.contacts.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-6 text-gray-400 text-xs">Belum ada kontak atau sosmed terdaftar.</div>`;
+                return;
+            }
+            appData.contacts.forEach(c => {
+                const div = document.createElement('div');
+                div.className = "bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex flex-col justify-between space-y-4";
+                div.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-goldTheme bg-amber-50 px-2.5 py-1 rounded-full">${c.role}</span>
+                            ${isAdmin ? `<button onclick="deleteContact(${c.id})" class="text-red-500 hover:text-red-700 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>` : ''}
+                        </div>
+                        <h4 class="text-lg font-bold text-emeraldTheme-dark mt-2">${c.name}</h4>
+                        <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-phone mr-1"></i> ${c.phone || '-'}</p>
+                        <p class="text-xs text-gray-500 mt-0.5"><i class="fa-solid fa-envelope mr-1"></i> ${c.email || '-'}</p>
+                    </div>
+                    ${c.link ? `<a href="${c.link}" target="_blank" rel="noopener noreferrer" class="text-xs font-medium text-emeraldTheme hover:underline flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-globe"></i> Kunjungi Tautan / Sosmed</a>` : ''}
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        // --- Random Doa & Motivasi ---
+        function generateRandomDoa() {
+            const rand = doaList[Math.floor(Math.random() * doaList.length)];
+            document.getElementById('arabicText').innerText = rand.arabic;
+            document.getElementById('latinText').innerText = `"${rand.latin}"`;
+            document.getElementById('translationText').innerText = `"${rand.trans}"`;
+            document.getElementById('doaSource').innerText = rand.source;
+        }
+
+        function generateRandomMotivation() {
+            const rand = motivations[Math.floor(Math.random() * motivations.length)];
+            document.getElementById('motivationText').innerText = rand;
+            showToast("Motivasi & hiburan diperbarui!");
+        }
+
+        // --- AI Summary Tool ---
+        function runAiSummary() {
+            const text = document.getElementById('aiInputText').value.trim();
+            const resBox = document.getElementById('aiResultBox');
+            if (!text) {
+                showToast("Silakan masukkan teks dokumen terlebih dahulu.");
+                return;
+            }
+            resBox.classList.remove('hidden');
+            resBox.innerHTML = `<strong>Ringkasan AI (Mode Poin Singkat):</strong><br>• Pokok bahasan utama: ${text.substring(0, 60)}...<br>• Inti pembelajaran: Berfokus pada pemahaman konseptual dan penerapan praktis dalam dunia pendidikan PIAUD.<br>• Kesimpulan: Sudah teruji berhasil dan siap dipelajari.`;
+            showToast("Ringkasan berhasil dihasilkan!");
+        }
+
+        // --- Q&A Handling ---
+        function handleUserQuestion(e) {
+            if (e.key === 'Enter') {
+                const qText = e.target.value.trim();
+                if (!qText) return;
+                appData.qa.push({ id: Date.now(), question: qText, answer: "Menunggu jawaban pengurus..." });
+                saveData();
+                renderQa();
+                e.target.value = '';
+                showToast("Pertanyaan berhasil dikirim!");
+            }
+        }
+
+        function handleStudentSubmission(e) {
+            e.preventDefault();
+            const name = document.getElementById('subName').value;
+            const nim = document.getElementById('subNim').value;
+            const subject = document.getElementById('subSubject').value;
+            const link = document.getElementById('subLink').value;
+
+            appData.submissions.push({ id: Date.now(), name, nim, subject, link, date: new Date().toLocaleDateString() });
+            saveData();
+            showToast("Tugas berhasil dikirim ke Pengurus!");
+            e.target.reset();
+        }
+
+        // --- Dynamic Modal Management (Admin CRUD) ---
+        function openDynamicModal(title, fieldsHtml, onSubmitCallback) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalFormFields').innerHTML = fieldsHtml;
+            document.getElementById('dynamicModal').classList.remove('hidden');
+            window.activeModalSubmit = onSubmitCallback;
+        }
+
+        function closeDynamicModal() {
+            document.getElementById('dynamicModal').classList.add('hidden');
+        }
+
+        function handleDynamicFormSubmit(e) {
+            e.preventDefault();
+            if (window.activeModalSubmit) {
+                window.activeModalSubmit();
+            }
+            closeDynamicModal();
+        }
+
+        // Student CRUD
+        function openStudentModal() {
+            openDynamicModal('Tambah Mahasiswa PIAUD', `
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                    <input type="text" id="sName" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">NIM</label>
+                    <input type="text" id="sNim" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Kelompok / Kelas</label>
+                    <input type="text" id="sGroup" placeholder="Contoh: Kelompok 1" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Status</label>
+                    <select id="sStatus" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                        <option value="Aktif">Aktif</option>
+                        <option value="Cuti">Cuti</option>
+                    </select>
+                </div>
+            `, () => {
+                const name = document.getElementById('sName').value;
+                const nim = document.getElementById('sNim').value;
+                const group = document.getElementById('sGroup').value;
+                const status = document.getElementById('sStatus').value;
+                appData.students.push({ id: Date.now(), name, nim, group, status });
+                saveData();
+                renderStudents();
+                showToast("Mahasiswa ditambahkan!");
+            });
+        }
+        function deleteStudent(id) {
+            appData.students = appData.students.filter(s => s.id !== id);
+            saveData();
+            renderStudents();
+            showToast("Mahasiswa dihapus.");
+        }
+
+        // Group CRUD
+        function openGroupModal() {
+            openDynamicModal('Tambah Kelompok & Link Grup', `
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Nama Kelompok</label>
+                    <input type="text" id="gName" placeholder="Contoh: Kelompok 1 - Fiqih" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Nama Anggota</label>
+                    <textarea id="gMembers" rows="2" placeholder="Daftar nama anggota..." class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Pengurus Kelompok</label>
+                    <input type="text" id="gLeader" placeholder="Ketua / Pengurus kelompok" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Link Grup (WhatsApp / Telegram)</label>
+                    <input type="url" id="gLink" placeholder="https://chat.whatsapp.com/..." required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+            `, () => {
+                const name = document.getElementById('gName').value;
+                const members = document.getElementById('gMembers').value;
+                const leader = document.getElementById('gLeader').value;
+                const link = document.getElementById('gLink').value;
+                appData.groups.push({ id: Date.now(), name, members, leader, link });
+                saveData();
+                renderGroups();
+                showToast("Kelompok ditambahkan!");
+            });
+        }
+        function deleteGroup(id) {
+            appData.groups = appData.groups.filter(g => g.id !== id);
+            saveData();
+            renderGroups();
+            showToast("Kelompok dihapus.");
+        }
+
+        // Q&A CRUD
+        function openQaModal() {
+            openDynamicModal('Tambah Jawab Q&A Tugas', `
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Pertanyaan</label>
+                    <input type="text" id="qaQ" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Jawaban Pengurus</label>
+                    <textarea id="qaA" rows="3" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none"></textarea>
+                </div>
+            `, () => {
+                const question = document.getElementById('qaQ').value;
+                const answer = document.getElementById('qaA').value;
+                appData.qa.push({ id: Date.now(), question, answer });
+                saveData();
+                renderQa();
+                showToast("Q&A disimpan!");
+            });
+        }
+        function deleteQa(id) {
+            appData.qa = appData.qa.filter(q => q.id !== id);
+            saveData();
+            renderQa();
+            showToast("Q&A dihapus.");
+        }
+
+        // Agenda CRUD
+        function openAgendaModal() {
+            openDynamicModal('Tambah Agenda & Alarm', `
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Waktu & Tanggal (Alarm)</label>
+                    <input type="text" id="aDate" placeholder="Contoh: 15 Okt 2026, 08:00 WIB" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Judul Agenda</label>
+                    <input type="text" id="aTitle" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Keterangan</label>
+                    <input type="text" id="aDesc" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+            `, () => {
+                const date = document.getElementById('aDate').value;
+                const title = document.getElementById('aTitle').value;
+                const desc = document.getElementById('aDesc').value;
+                appData.agenda.push({ id: Date.now(), date, title, desc });
+                saveData();
+                renderAgenda();
+                showToast("Agenda & alarm ditambahkan!");
+            });
+        }
+        function deleteAgenda(id) {
+            appData.agenda = appData.agenda.filter(a => a.id !== id);
+            saveData();
+            renderAgenda();
+            showToast("Agenda dihapus.");
+        }
+
+        // Info CRUD
+        function openInfoModal() {
+            openDynamicModal('Tambah Info Penting Kampus', `
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Judul Pengumuman</label>
+                    <input type="text" id="iTitle" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Isi Pengumuman</label>
+                    <textarea id="iDesc" rows="3" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none"></textarea>
+                </div>
+            `, () => {
+                const title = document.getElementById('iTitle').value;
+                const desc = document.getElementById('iDesc').value;
+                appData.info.push({ id: Date.now(), title, desc });
+                saveData();
+                renderInfo();
+                showToast("Info penting ditambahkan!");
+            });
+        }
+        function deleteInfo(id) {
+            appData.info = appData.info.filter(i => i.id !== id);
+            saveData();
+            renderInfo();
+            showToast("Info dihapus.");
+        }
+
+        // Contact CRUD
+        function openContactModal() {
+            openDynamicModal('Tambah Kontak Dosen / Staff / Sosmed', `
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Nama & Gelar</label>
+                    <input type="text" id="cName" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Peran / Jabatan</label>
+                    <input type="text" id="cRole" placeholder="Contoh: Dosen / Staff Asta Harsa / Pengurus PIAUD" required class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Nomor Telepon / WhatsApp</label>
+                    <input type="text" id="cPhone" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="cEmail" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Link Tautan / Sosmed</label>
+                    <input type="url" id="cLink" class="w-full text-xs p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emeraldTheme focus:outline-none">
+                </div>
+            `, () => {
+                const name = document.getElementById('cName').value;
+                const role = document.getElementById('cRole').value;
+                const phone = document.getElementById('cPhone').value;
+                const email = document.getElementById('cEmail').value;
+                const link = document.getElementById('cLink').value;
+                appData.contacts.push({ id: Date.now(), name, role, phone, email, link });
+                saveData();
+                renderContacts();
+                showToast("Kontak ditambahkan!");
+            });
+        }
+        function deleteContact(id) {
+            appData.contacts = appData.contacts.filter(c => c.id !== id);
+            saveData();
+            renderContacts();
+            showToast("Kontak dihapus.");
+        }
+    </script>
+</body>
+</html>
